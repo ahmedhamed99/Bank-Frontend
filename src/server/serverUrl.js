@@ -1,3 +1,3 @@
-const serverUrl = "http://127.0.0.1:8000";
+const serverUrl = "bank-backend-production.up.railway.app";
 
 export default serverUrl;
