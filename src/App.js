@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Dashboard from './components/Dashboard';
+import { useState, useEffect } from "react";
+import serverUrl from './server/serverUrl';
 
 function App() {
+  const [customers, setCustomers] = useState([]);
+  const [latestTransfer, setLatestTransfer] = useState({});
+
+  useEffect(() => {
+    const getCustomers = async () => {
+      const getCustomers = await fetchCustomers();
+      setCustomers(getCustomers);
+    }
+    const getLatestTransfer = async () => {
+      const latest = await fetchLatestTransfer();
+      if (latest !== "No Transfers") {
+        setLatestTransfer(latest);
+      }
+      
+    }
+    getCustomers();
+    getLatestTransfer();
+  }, [latestTransfer])
+  const fetchCustomers = async () => {
+    const res = await fetch(`${serverUrl}/customers/`);
+    const data = await res.json();
+    return data;
+  }
+
+  const fetchLatestTransfer = async () => {
+    const res = await fetch(`${serverUrl}/transactions/latest`)
+    const data = await res.json();
+    return data;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Dashboard customers={customers} latest={latestTransfer} />
+    </React.Fragment>
   );
 }
 
