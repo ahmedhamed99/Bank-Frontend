@@ -8,6 +8,7 @@ function App() {
   const [latestTransfer, setLatestTransfer] = useState({});
 
   useEffect(() => {
+    console.log(serverUrl)
     const getCustomers = async () => {
       const getCustomers = await fetchCustomers();
       setCustomers(getCustomers);
