@@ -26,6 +26,7 @@ function App() {
   const fetchCustomers = async () => {
     const res = await fetch(`${serverUrl}/customers/`);
     const data = await res.json();
+    console.log("customers",data)
     return data;
   }
 
