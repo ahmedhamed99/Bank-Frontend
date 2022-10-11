@@ -8,7 +8,6 @@ function App() {
   const [latestTransfer, setLatestTransfer] = useState({});
 
   useEffect(() => {
-    console.log(serverUrl)
     const getCustomers = async () => {
       const getCustomers = await fetchCustomers();
       setCustomers(getCustomers);
@@ -26,7 +25,6 @@ function App() {
   const fetchCustomers = async () => {
     const res = await fetch(`${serverUrl}/customers/`);
     const data = await res.json();
-    console.log("customers",data)
     return data;
   }
 
